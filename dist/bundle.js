@@ -22089,23 +22089,21 @@ var App = function (_Flux) {
       this.on('todo:toggle', function (todo) {
         var newTodos = _this2.state.todos.map(function (t) {
           var newTodo = (0, _clone2.default)(t);
-          if (todo.id == t.id) {
+          if (todo.id === t.id) {
             newTodo.completed = !t.completed;
             return newTodo;
           }
           return t;
         });
 
-        _this2.update(function (_ref2) {
-          var todos = _ref2.todos;
-
+        _this2.update(function () {
           return { todos: newTodos };
         });
       });
 
-      this.on('todo:destroy', function (todo) {
-        return 0;
-      });
+      // this.on('todo:destroy', (todo) => {
+      // return 0;
+      // });
     }
   }, {
     key: 'render',
@@ -22162,21 +22160,23 @@ var Todo = function (_Component) {
 
   _createClass(Todo, [{
     key: 'handleToggle',
-    value: function handleToggle(e) {
+    value: function handleToggle() {
       this.dispatch('todo:toggle', this.props);
     }
   }, {
     key: 'render',
     value: function render() {
       var todoTitleClass = (0, _classnames2.default)({
-        'title__todo': true,
+        title__todo: true,
         'title__todo--completed': this.props.completed
       });
 
       return React.createElement(
         'div',
         { className: 'todo' },
-        React.createElement('input', { type: 'checkbox', value: this.props.title, checked: this.props.completed, onChange: this.handleToggle }),
+        React.createElement('input', { type: 'checkbox', value: this.props.title,
+          checked: this.props.completed, onChange: this.handleToggle
+        }),
         React.createElement(
           'span',
           { className: todoTitleClass },
@@ -22190,6 +22190,11 @@ var Todo = function (_Component) {
 }(_flumpt.Component);
 
 exports.default = Todo;
+
+Todo.propTypes = {
+  title: React.PropTypes.string.isRequired,
+  completed: React.PropTypes.bool.isRequired
+};
 
 },{"classnames":1,"flumpt":5,"react":165}],171:[function(require,module,exports){
 'use strict';
@@ -22297,14 +22302,14 @@ var TodoForm = function (_Component) {
       if (e.which === 13) {
         e.preventDefault();
         this.dispatch('todo:create', this.todoInput.value);
-        this.todoInput.value = "";
+        this.todoInput.value = '';
       }
     }
   }, {
     key: 'handleClick',
-    value: function handleClick(e) {
+    value: function handleClick() {
       this.dispatch('todo:create', this.todoInput.value);
-      this.todoInput.value = "";
+      this.todoInput.value = '';
     }
   }, {
     key: 'render',
@@ -22312,7 +22317,9 @@ var TodoForm = function (_Component) {
       return React.createElement(
         'div',
         null,
-        React.createElement('input', { type: 'text', id: 'js-todo-input', placeholder: 'Todo title', onKeyPress: this.handleKeyPress }),
+        React.createElement('input', { type: 'text', id: 'js-todo-input', placeholder: 'Todo title',
+          onKeyPress: this.handleKeyPress
+        }),
         React.createElement('input', { type: 'submit', value: 'Add', onClick: this.handleClick })
       );
     }
@@ -22383,12 +22390,12 @@ var TodoList = function (_Component) {
 
 exports.default = TodoList;
 
+TodoList.propTypes = {
+  todos: React.PropTypes.array.isRequired
+};
+
 },{"./Todo":170,"flumpt":5,"react":165}],174:[function(require,module,exports){
 'use strict';
-
-var _react = require('react');
-
-var React = _interopRequireWildcard(_react);
 
 var _reactDom = require('react-dom');
 
@@ -22398,7 +22405,7 @@ var _app2 = _interopRequireDefault(_app);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+// import * as React from 'react';
 
 var app = new _app2.default({
   renderer: function renderer(el) {
@@ -22422,4 +22429,4 @@ app.update(function (state) {
   return state;
 });
 
-},{"./app":169,"react":165,"react-dom":9}]},{},[174]);
+},{"./app":169,"react-dom":9}]},{},[174]);

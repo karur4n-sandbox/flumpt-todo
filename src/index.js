@@ -1,27 +1,27 @@
-import * as React from 'react';
-import {render} from 'react-dom';
+// import * as React from 'react';
+import { render } from 'react-dom';
 
 import App from './app';
 
 const app = new App({
   renderer: el => {
-    render(el, document.querySelector('#todoapp'))
+    render(el, document.querySelector('#todoapp'));
   },
   initialState: {
     todos: [
       {
         title: 'initial todo',
         completed: false,
-        id: 1
+        id: 1,
       },
       {
         title: 'second todo',
         completed: false,
-        id: 2
-      }
-    ]
+        id: 2,
+      },
+    ],
   },
-  middlewares: []
-})
+  middlewares: [],
+});
 
-app.update(state => state)
+app.update(state => state);
