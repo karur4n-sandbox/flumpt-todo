@@ -1,0 +1,26 @@
+{
+  "name": "flumpt-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "watch": "watchify -t babelify -o dist/bundle.js src/index.js -v"
+  },
+  "dependencies": {
+    "classnames": "^2.2.3",
+    "clone": "^1.0.2",
+    "flumpt": "^0.1.4",
+    "gen-id": "^0.1.1",
+    "react": "^0.14.5",
+    "react-dom": "^0.14.5"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-react-jsx": "^6.3.13",
+    "babel-preset-es2015": "^6.3.13",
+    "babelify": "^7.2.0",
+    "browserify": "^12.0.1",
+    "watchify": "^3.6.1"
+  }
+}
