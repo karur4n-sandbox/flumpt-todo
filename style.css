@@ -1,3 +1,12 @@
 .title__todo--completed {
   text-decoration: line-through;
 }
+
+.remove__button {
+  color: blue;
+  cursor: pointer;
+}
+
+.remove__button:hover {
+  text-decoration: underline;
+}

@@ -33,9 +33,15 @@ export default class App extends Flux {
       });
     });
 
-    // this.on('todo:destroy', (todo) => {
-      // return 0;
-    // });
+    this.on('todo:remove', (todo) => {
+      const newTodos = this.state.todos.filter((t) => {
+        return (t.id !== todo.id) ? true : false;
+      });
+
+      this.update(() => {
+        return { todos: newTodos };
+      });
+    });
   }
 
   render(state) {

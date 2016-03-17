@@ -22101,9 +22101,15 @@ var App = function (_Flux) {
         });
       });
 
-      // this.on('todo:destroy', (todo) => {
-      // return 0;
-      // });
+      this.on('todo:remove', function (todo) {
+        var newTodos = _this2.state.todos.filter(function (t) {
+          return t.id !== todo.id ? true : false;
+        });
+
+        _this2.update(function () {
+          return { todos: newTodos };
+        });
+      });
     }
   }, {
     key: 'render',
@@ -22155,6 +22161,7 @@ var Todo = function (_Component) {
     var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(Todo).call(this, props));
 
     _this.handleToggle = _this.handleToggle.bind(_this);
+    _this.handleRemoveClick = _this.handleRemoveClick.bind(_this);
     return _this;
   }
 
@@ -22162,6 +22169,12 @@ var Todo = function (_Component) {
     key: 'handleToggle',
     value: function handleToggle() {
       this.dispatch('todo:toggle', this.props);
+    }
+  }, {
+    key: 'handleRemoveClick',
+    value: function handleRemoveClick(e) {
+      e.preventDefault();
+      this.dispatch('todo:remove', this.props);
     }
   }, {
     key: 'render',
@@ -22173,7 +22186,7 @@ var Todo = function (_Component) {
 
       return React.createElement(
         'div',
-        { className: 'todo' },
+        { className: 'todo', style: styles.container },
         React.createElement('input', { type: 'checkbox', value: this.props.title,
           checked: this.props.completed, onChange: this.handleToggle
         }),
@@ -22181,6 +22194,11 @@ var Todo = function (_Component) {
           'span',
           { className: todoTitleClass },
           this.props.title
+        ),
+        React.createElement(
+          'span',
+          { className: 'remove__button', onClick: this.handleRemoveClick },
+          '[x]'
         )
       );
     }
@@ -22190,6 +22208,12 @@ var Todo = function (_Component) {
 }(_flumpt.Component);
 
 exports.default = Todo;
+
+var styles = {
+  container: {
+    border: '1px solid red'
+  }
+};
 
 Todo.propTypes = {
   title: React.PropTypes.string.isRequired,
@@ -22245,7 +22269,7 @@ var TodoApp = function (_Component) {
         'div',
         null,
         React.createElement(_TodoList2.default, this.props),
-        React.createElement(_TodoForm2.default, this.props)
+        React.createElement(_TodoForm2.default, null)
       );
     }
   }]);
@@ -22379,7 +22403,7 @@ var TodoList = function (_Component) {
 
       return React.createElement(
         'div',
-        { className: 'todoList' },
+        { className: 'todoList', style: style },
         todos
       );
     }
@@ -22389,6 +22413,10 @@ var TodoList = function (_Component) {
 }(_flumpt.Component);
 
 exports.default = TodoList;
+
+var style = {
+  backgroundColor: '#eee'
+};
 
 TodoList.propTypes = {
   todos: React.PropTypes.array.isRequired
@@ -22413,16 +22441,19 @@ var app = new _app2.default({
   },
   initialState: {
     todos: [{
-      title: 'initial todo',
+      title: '卵を買う',
       completed: false,
       id: 1
     }, {
-      title: 'second todo',
+      title: 'お金を引き出す',
       completed: false,
       id: 2
     }]
   },
-  middlewares: []
+  middlewares: [function (state) {
+    console.log(state);
+    return state;
+  }]
 });
 
 app.update(function (state) {

@@ -10,18 +10,23 @@ const app = new App({
   initialState: {
     todos: [
       {
-        title: 'initial todo',
+        title: '卵を買う',
         completed: false,
         id: 1,
       },
       {
-        title: 'second todo',
+        title: 'お金を引き出す',
         completed: false,
         id: 2,
       },
     ],
   },
-  middlewares: [],
+  middlewares: [
+    (state) => {
+      console.log(state);
+      return state;
+    },
+  ],
 });
 
 app.update(state => state);

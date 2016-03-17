@@ -8,7 +8,7 @@ export default class TodoApp extends Component {
     return (
       <div>
         <TodoList {...this.props}/>
-        <TodoForm {...this.props}/>
+        <TodoForm />
       </div>
     );
   }

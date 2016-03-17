@@ -9,11 +9,15 @@ export default class TodoList extends Component {
     });
 
     return (
-      <div className="todoList">
+      <div className="todoList" style={style}>
         {todos}
       </div>
     );
   }
+}
+
+const style = {
+  backgroundColor: '#eee'
 }
 
 TodoList.propTypes = {
